@@ -14,6 +14,7 @@ class BusinessesController < ApplicationController
 
   # GET /businesses/new
   def new
+    @category = Category.find(params[:category_id])
     @business = Business.new
   end
 
@@ -24,11 +25,12 @@ class BusinessesController < ApplicationController
   # POST /businesses
   # POST /businesses.json
   def create
-    @business = Business.new(business_params)
+    @category = Category.find(params[:category_id])
+    @business = @category.businesses.new(business_params)
 
     respond_to do |format|
       if @business.save
-        format.html { redirect_to @business, notice: 'Business was successfully created.' }
+        format.html { redirect_to categories_path, notice: 'Business was successfully created.' }
         format.json { render :show, status: :created, location: @business }
       else
         format.html { render :new }
@@ -69,6 +71,6 @@ class BusinessesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def business_params
-      params.require(:business).permit(:name, :location, :contact)
+      params.require(:business).permit(:name, :location, :contact, :category_id)
     end
 end

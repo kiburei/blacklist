@@ -12,3 +12,26 @@
 
 <%= link_to 'Edit', edit_category_path(@category) %> |
 <%= link_to 'Back', categories_path %>
+
+<%= link_to "Add Business", new_category_business_path(@category, @business) %>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Location</th>
+      <th>Contact</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @businesses.each do |business| %>
+      <tr>
+        <td><%= business.name %></td>
+        <td><%= business.location %></td>
+        <td><%= business.contact %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
